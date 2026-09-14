@@ -1,0 +1,10 @@
+# Runtime-generated (created by batt_monitor.bat / the daemon)
+batt_monitor.pid
+batt_monitor_log.txt
+mosquitto_log.txt
+*.log
+*.pid
+
+# Python
+__pycache__/
+*.pyc
