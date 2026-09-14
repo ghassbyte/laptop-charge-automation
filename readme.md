@@ -38,7 +38,7 @@ laptop itself:
 
 | File | Purpose |
 |---|---|
-| `battery_charger_automation.py` | Reads battery %, applies the 20/80 hysteresis logic, publishes ON/OFF to the S20 over MQTT. Also listens for mode changes (`auto` / `force_on`). |
+| `laptop-charge-automation.py` | Reads battery %, applies the 20/80 hysteresis logic, publishes ON/OFF to the S20 over MQTT. Also listens for mode changes (`auto` / `force_on`). |
 | Mosquitto (installed separately) | Local MQTT broker. Configured with a username/password, no anonymous access. |
 | `batt_monitor.bat` | The one button I press at the start of the day. Self-elevates to admin, prompts me to confirm the hotspot is on, starts the broker + daemon **hidden in the background** (no windows, no taskbar clutter), and sets mode to `auto`. |
 | `game.bat` | Publishes `force_on` — charger stays on regardless of battery, for gaming sessions. |
@@ -85,7 +85,7 @@ New-NetFirewallRule -DisplayName "Mosquitto MQTT" -Direction Inbound -Protocol T
 ```
 pip install paho-mqtt psutil
 ```
-Config lives at the top of `battery_charger_automation.py`: broker host/port/credentials, the Tasmota topic, and the 20/80 thresholds.
+Config lives at the top of `laptop-charge-automation.py`: broker host/port/credentials, the Tasmota topic, and the 20/80 thresholds.
 
 ### 5. Batch files
 Fill in the placeholder values at the top of each `.bat`:
@@ -113,7 +113,7 @@ The `-r` (retain) flag means the mode persists even across a daemon restart.
 
 Since everything runs hidden with no visible console, output goes to files instead:
 - `mosquitto_log.txt` — next to `mosquitto.exe`
-- `batt_monitor_log.txt` — next to `battery_charger_automation.py`
+- `batt_monitor_log.txt` — next to `laptop-charge-automation.py`
 
 Check these if something seems off (e.g. "battery=100% mode=auto relay=OFF" lines confirm it's working correctly).
 
